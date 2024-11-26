@@ -39,7 +39,6 @@ export const signin=async(req,res)=>{
         const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
-        console.log("okok");
         const token = jwt.sign({ employee_id: oldUser.employee_id, role: oldUser.role }, secret, { expiresIn: "1h" });
         return res.status(200).json({role:oldUser.role,employee_id:oldUser.employee_id,token});
 
