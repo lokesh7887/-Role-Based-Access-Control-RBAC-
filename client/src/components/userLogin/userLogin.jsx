@@ -28,44 +28,44 @@ const FlipCard = (props) => {
     setRegisterData({ ...registerData, [name]: value });
   };
 
-  const handelSignin=async(e)=>{
+  const handelSignin = async (e) => {
     const { name, value } = e.target;
-    setLoginData({...loginData,[name]:value})
+    setLoginData({ ...loginData, [name]: value })
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3000/signin", loginData)
-      .then((response) => {
-        const { token, role, employee_id } = response.data;
-    
-        localStorage.setItem('token', token);
-        props.setIsAuthenticated(token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('employee_id', employee_id);
-        
-        console.log('Login successful, token stored in localStorage');
-      });
+        .then((response) => {
+          const { token, role, employee_id } = response.data;
+
+          localStorage.setItem('token', token);
+          props.setIsAuthenticated(token);
+          localStorage.setItem('role', role);
+          localStorage.setItem('employee_id', employee_id);
+
+          console.log('Login successful, token stored in localStorage');
+        });
       // alert(response.data.message);
     } catch (error) {
       alert(`Error: ${error.response?.data?.message || error.message}`);
     }
   }
 
-  const handelSignup=async(e)=>{
-    const {name,value}=e.target;
-    setRegisterData({...registerData,[name]:value});
+  const handelSignup = async (e) => {
+    const { name, value } = e.target;
+    setRegisterData({ ...registerData, [name]: value });
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:3000/signup", registerData)
-      .then((response) => {
-        const { token, role, employee_id } = response.data;
-    
-        localStorage.setItem('token', token);
-        props.setIsAuthenticated(token);
-        localStorage.setItem('role', role);
-        localStorage.setItem('employee_id', employee_id);
-    
-        console.log('Login successful, token stored in localStorage');
-      });
+        .then((response) => {
+          const { token, role, employee_id } = response.data;
+
+          localStorage.setItem('token', token);
+          props.setIsAuthenticated(token);
+          localStorage.setItem('role', role);
+          localStorage.setItem('employee_id', employee_id);
+
+          console.log('Login successful, token stored in localStorage');
+        });
     } catch (error) {
       alert(`Error: ${error.response?.data?.message || error.message}`);
     }
