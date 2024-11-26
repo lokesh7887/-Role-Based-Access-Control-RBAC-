@@ -31,6 +31,6 @@ You can access the live version of the application here:
 ## Setup & Installation
 
 ### Clone the repository and install required dependencies in client & server.
-
-
+![image](https://github.com/user-attachments/assets/372bb679-cde3-4999-8bbf-65321c011dbd)
+/home/mohitub/Pictures/Screenshots/Screenshot from 2024-11-27 02-20-02.png
 
