@@ -1,4 +1,4 @@
-  .card2 {
+  .card3 {
     width: 300px;
 
     padding: 20px;
@@ -7,9 +7,10 @@
     border-radius: 10px;
     height: 400px;
   }
-  .card2 button{
-    width: 80%;
+  .card3 button{
+    width: 30%;
     margin: 10px;
+    color: red;
     
   }
   

@@ -1,23 +1,26 @@
-import { useState } from 'react'
-import './App.css'
-import FlipCard from './components/userLogin/userLogin'
-import ServicesCard from './components/services/service'
+import { useState, useEffect } from 'react';
+import './App.css';
+import FlipCard from './components/userLogin/userLogin';
+import ServicesCard from './components/services/service';
+import ProfileCard from './components/userProfile/userProfile';
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(token); 
+  }, []);
 
   return (
     <>
-
-      <h1>👮‍♀VRV Security Service</h1>
+      <h1>👮‍♀ VRV Security Service</h1>
       <div className="panel">
-        <FlipCard/>
-        <ServicesCard/>
+        {isAuthenticated ? <ProfileCard setIsAuthenticated={setIsAuthenticated} /> : <FlipCard setIsAuthenticated={setIsAuthenticated} />}
+        <ServicesCard />
       </div>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

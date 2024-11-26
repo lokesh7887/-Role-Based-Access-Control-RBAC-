@@ -1,28 +1,93 @@
 import React, { useState } from "react";
 import "./userLogin.css";
+import axios from "axios";
 
-const FlipCard = () => {
+const FlipCard = (props) => {
+  const toggleForm = () => setIsRegister(!isRegister);
+
   const [isRegister, setIsRegister] = useState(false);
 
-  const toggleForm = () => setIsRegister(!isRegister);
+  const [registerData, setRegisterData] = useState({
+    employee_id: "",
+    role: "",
+    phone: "",
+    password: "",
+  });
+
+  const [loginData, setLoginData] = useState({
+    employee_id: "",
+    password: "",
+  });
+
+  const handleLoginChange = (event) => {
+    const { name, value } = event.target;
+    setLoginData({ ...loginData, [name]: value });
+  };
+  const handleRegisterChange = (event) => {
+    const { name, value } = event.target;
+    setRegisterData({ ...registerData, [name]: value });
+  };
+
+  const handelSignin=async(e)=>{
+    const { name, value } = e.target;
+    setLoginData({...loginData,[name]:value})
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/signin", loginData)
+      .then((response) => {
+        const { token, role, employee_id } = response.data;
+    
+        localStorage.setItem('token', token);
+        props.setIsAuthenticated(token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('employee_id', employee_id);
+        
+        console.log('Login successful, token stored in localStorage');
+      });
+      // alert(response.data.message);
+    } catch (error) {
+      alert(`Error: ${error.response?.data?.message || error.message}`);
+    }
+  }
+
+  const handelSignup=async(e)=>{
+    const {name,value}=e.target;
+    setRegisterData({...registerData,[name]:value});
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3000/signup", registerData)
+      .then((response) => {
+        const { token, role, employee_id } = response.data;
+    
+        localStorage.setItem('token', token);
+        props.setIsAuthenticated(token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('employee_id', employee_id);
+    
+        console.log('Login successful, token stored in localStorage');
+      });
+    } catch (error) {
+      alert(`Error: ${error.response?.data?.message || error.message}`);
+    }
+  }
 
   return (
     <div className="card">
       {isRegister ? (
         <div className="form-container">
           <h2>Register</h2>
-          <form>
-            <input type="text" placeholder="Employee ID" />
-            <select>
+          <form onSubmit={handelSignup}>
+            <input onChange={handleRegisterChange} name="employee_id" type="text" placeholder="Employee ID" />
+            <select onChange={handleRegisterChange} name="role">
               <option value="" disabled selected>Role</option>
               <option value="Gaurd">Gaurd</option>
               <option value="Manager">Manager</option>
               <option value="Authority">Authority</option>
             </select>
 
-            <input type="email" placeholder="Phone" />
-            <input type="password" placeholder="Password" />
-            <button>Register</button>
+            <input onChange={handleRegisterChange} name="phone" type="text" placeholder="Phone" />
+            <input onChange={handleRegisterChange} name="password" type="password" placeholder="Password" />
+            <button type="submit">Register</button>
             <p>
               Have an account? <span onClick={toggleForm}>Login</span>
             </p>
@@ -31,10 +96,10 @@ const FlipCard = () => {
       ) : (
         <div className="form-container">
           <h2>Login</h2>
-          <form>
-            <input type="text" placeholder="Employee ID" />
-            <input type="password" placeholder="Password" />
-            <button>Login</button>
+          <form onSubmit={handelSignin}>
+            <input onChange={handleLoginChange} name="employee_id" type="text" placeholder="Employee ID" />
+            <input onChange={handleLoginChange} name="password" type="password" placeholder="Password" />
+            <button type="submit">Login</button>
             <p>
               No account? <span onClick={toggleForm}>Register</span>
             </p>
