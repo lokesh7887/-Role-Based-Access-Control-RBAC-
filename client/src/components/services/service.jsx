@@ -14,7 +14,7 @@ const ServicesCard = () => {
     }
 
     axios
-      .get(`http://localhost:3000/service/${serviceEndpoint}`, {
+      .get(`https://vrv-assignment-a6zw.onrender.com/service/${serviceEndpoint}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

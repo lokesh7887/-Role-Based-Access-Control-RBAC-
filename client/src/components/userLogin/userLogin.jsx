@@ -33,7 +33,7 @@ const FlipCard = (props) => {
     setLoginData({ ...loginData, [name]: value })
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/signin", loginData)
+      const response = await axios.post("https://vrv-assignment-a6zw.onrender.com/signin", loginData)
         .then((response) => {
           const { token, role, employee_id } = response.data;
 
@@ -55,7 +55,7 @@ const FlipCard = (props) => {
     setRegisterData({ ...registerData, [name]: value });
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/signup", registerData)
+      const response = await axios.post("https://vrv-assignment-a6zw.onrender.com/signup", registerData)
         .then((response) => {
           const { token, role, employee_id } = response.data;
 
