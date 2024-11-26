@@ -1,6 +1,6 @@
 # VRV Security’s Backend Developer Intern Assignment
 
-# VRV Security Service - Role-Based Access Control (RBAC)
+# Role-Based Access Control (RBAC)
 
 ## Overview
 
