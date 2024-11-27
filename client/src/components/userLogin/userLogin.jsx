@@ -18,6 +18,7 @@ const FlipCard = (props) => {
     employee_id: "",
     password: "",
   });
+  const [loading, setLoading] =useState(false)
 
   const handleLoginChange = (event) => {
     const { name, value } = event.target;
@@ -29,6 +30,7 @@ const FlipCard = (props) => {
   };
 
   const handelSignin = async (e) => {
+    setLoading(true);
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value })
     e.preventDefault();
@@ -47,10 +49,13 @@ const FlipCard = (props) => {
       // alert(response.data.message);
     } catch (error) {
       alert(`Error: ${error.response?.data?.message || error.message}`);
+    } finally{
+      setLoading(false)
     }
   }
 
   const handelSignup = async (e) => {
+    setLoading(true);
     const { name, value } = e.target;
     setRegisterData({ ...registerData, [name]: value });
     e.preventDefault();
@@ -68,6 +73,8 @@ const FlipCard = (props) => {
         });
     } catch (error) {
       alert(`Error: ${error.response?.data?.message || error.message}`);
+    }finally{
+      setLoading(false)
     }
   }
 
@@ -87,7 +94,11 @@ const FlipCard = (props) => {
 
             <input onChange={handleRegisterChange} name="phone" type="text" placeholder="Phone" />
             <input onChange={handleRegisterChange} name="password" type="password" placeholder="Password" />
-            <button type="submit">Register</button>
+            <button type="submit">
+              {
+                loading ? "Loading..." : "Register"
+              }
+              </button>
             <p>
               Have an account? <span onClick={toggleForm}>Login</span>
             </p>
@@ -99,7 +110,11 @@ const FlipCard = (props) => {
           <form onSubmit={handelSignin}>
             <input onChange={handleLoginChange} name="employee_id" type="text" placeholder="Employee ID" />
             <input onChange={handleLoginChange} name="password" type="password" placeholder="Password" />
-            <button type="submit">Login</button>
+            <button type="submit">
+              {
+                loading ? "Loading..." : "Login"
+              }
+              </button>
             <p>
               No account? <span onClick={toggleForm}>Register</span>
             </p>
